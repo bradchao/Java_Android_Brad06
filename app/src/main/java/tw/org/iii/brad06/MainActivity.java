@@ -3,6 +3,7 @@ package tw.org.iii.brad06;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -22,7 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-    private File sdroot, approot, file1, file2;
+    private File sdroot, approot, file1, file2, photoFile;
     private WebView webview;
 
 
@@ -101,7 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
     // call other camera
     public void test3(View v){
+        photoFile = new File(sdroot, "myicon.jpg");
+
         Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
         startActivityForResult(it, 1);
     }
 
