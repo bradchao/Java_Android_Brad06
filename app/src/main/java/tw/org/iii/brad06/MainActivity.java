@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import java.io.File;
@@ -18,12 +21,15 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private File sdroot, approot, file1, file2;
+    private WebView webview;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        webview = (WebView)findViewById(R.id.webview);
 
         String state = Environment.getExternalStorageState();
         Log.v("brad", state);
@@ -50,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void initWebView(){
+        webview.setWebViewClient(new WebViewClient());
+        WebSettings settings = webview.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webview.loadUrl("");
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -70,6 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void test2(View v){
+        file2 = new File(sdroot, "brad.txt");
+        try {
+            FileWriter writer = new FileWriter(file2);
+            writer.write("Hello, World\nLine2\nLine3\n");
+            writer.flush();
+            writer.close();
+            Toast.makeText(this, "Save2 OK", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
