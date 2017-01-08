@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private File sdroot, approot, file1, file2;
@@ -54,6 +57,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void test1(View v){
+        file1 = new File(approot, "brad.txt");
+        try {
+            FileWriter writer = new FileWriter(file1);
+            writer.write("Hello, World\nLine2\nLine3\n");
+            writer.flush();
+            writer.close();
+            Toast.makeText(this, "Save1 OK", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void test2(View v){
 
     }
 }
