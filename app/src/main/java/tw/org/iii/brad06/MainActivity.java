@@ -9,7 +9,7 @@ import android.view.View;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
-    private File sdroot;
+    private File sdroot, approot, file1, file2;
 
 
     @Override
@@ -21,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
         Log.v("brad", state);
         sdroot = Environment.getExternalStorageDirectory();
         Log.v("brad", sdroot.getAbsolutePath());
+
+        approot = new File(sdroot, "Android/data/" + getPackageName());
+        if (approot.exists()){
+            approot.mkdirs();
+        }
 
     }
 
