@@ -120,6 +120,23 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             Bitmap bmp = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
             img.setImageBitmap(bmp);
+
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        MultipartUtility mu = new MultipartUtility(
+                                "http://10.0.2.2:8080/BradWeb/Brad03.jsp",
+                                "UTF-8");
+                        mu.addFilePart("upload", photoFile);
+                        mu.finish();
+                    }catch (Exception ee){
+
+                    }
+
+                }
+            }.start();
+
         }
     }
 }
