@@ -54,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
         if (!approot.exists()) {
             approot.mkdirs();
         }
+        initWebView();
     }
 
     private void initWebView(){
         webview.setWebViewClient(new WebViewClient());
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);
-        webview.loadUrl("");
+        webview.loadUrl("file:///android_asset/brad.html");
     }
 
     @Override
@@ -95,4 +96,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    // call other camera
+    public void test3(View v){
+
+    }
+
 }
