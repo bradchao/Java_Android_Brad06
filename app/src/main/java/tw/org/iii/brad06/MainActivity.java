@@ -3,6 +3,8 @@ package tw.org.iii.brad06;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -25,6 +28,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private File sdroot, approot, file1, file2, photoFile;
     private WebView webview;
+    private ImageView img;
 
 
     @Override
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        img = (ImageView)findViewById(R.id.img);
         webview = (WebView)findViewById(R.id.webview);
 
         String state = Environment.getExternalStorageState();
@@ -112,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("brad", "callback");
+        if (resultCode == RESULT_OK){
+            Bitmap bmp = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            img.setImageBitmap(bmp);
+        }
     }
 }
